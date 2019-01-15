@@ -21,7 +21,6 @@
                         </a>
                     </li>
                 </ul>
-
                 <ul class="navbar-nav navbar-right">
                     <li class="nav-item">
                         <form action="{{ url('/logout') }}" method="POST" style="display:inline">
