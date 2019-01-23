@@ -1,23 +1,22 @@
 <?php
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/', 'HomeController@getHome');
+
 Route::get('/login', function () {
     return view('auth.login');
 });
 Route::get('/loguot', function () {
     return view('auth.logout');
 });
-Route::get('/catalog', function () {
-    return view('catalog.index');
+Route::get('/catalog', 'CatalogController@getIndex');
+
+Route::get('/create', 'CatalogController@getCreate');
+
+Route::group(['prefix' => 'catalog'], function () {
+    Route::get('/show/{id}', 'CatalogController@getShow');
+
+    Route::get('/edit/{id}', 'CatalogController@getEdit');
 });
-Route::get('/show/{id}', function ($id) {
-    return iew('catalog.show', array('id'=>$id));
-});
-Route::get('/create', function () {
-    return view('catalog.create');
-});
-Route::get('/edit/{id}', function ($id) {
-    return iew('catalog.edit', array('id'=>$id));
-});
+
+
+
