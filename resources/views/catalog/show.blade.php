@@ -14,6 +14,7 @@
             <p><b>Año:</b> {{$pelicula['year']}}</p>
             <p><b>Director:</b> {{$pelicula['director']}}</p>
             <p>{{$pelicula['synopsis']}}</p>
+
             @if($pelicula['rented']!=false)
                 <p><b>Estado:</b> Pelicula disponible</p>
                 <a><button type="button" class="btn btn-primary">Alquilar pelicula</button></a>
@@ -21,7 +22,7 @@
                 <p><b>Estado:</b> Pelicula Alquilada</p>
                 <a><button type="button" class="btn btn-danger">Devolver pelicula</button></a>
             @endif
-             <a href="/edit"><button type="button" class="btn btn-warning"><i class="fas fa-pen"></i> Editar</button></a> <a href="/catalog"><button type="button" class="btn btn-outline-dark"><i class="fas fa-arrow-left"></i> Volver al listado</button></a>
+             <a href="/catalog/edit/{{$id}}"><button type="button" class="btn btn-warning"><i class="fas fa-pen"></i> Editar</button></a> <a href="/catalog"><button type="button" class="btn btn-outline-dark"><i class="fas fa-arrow-left"></i> Volver al listado</button></a>
         </div>
     </div>
 @endsection
