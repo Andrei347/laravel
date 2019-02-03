@@ -14,6 +14,8 @@ Route::get('/catalog', 'CatalogController@getIndex');
 Route::group(['prefix' => 'catalog'], function () {
     Route::get('/show/{id}', 'CatalogController@getShow');
 
+    Route::get('/show/changeRented/{id}', 'CatalogController@changeRented');
+
     Route::get('/edit/{id}', 'CatalogController@getEdit');
 
     Route::get('/create', 'CatalogController@getCreate');
@@ -21,3 +23,7 @@ Route::group(['prefix' => 'catalog'], function () {
 
 
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
