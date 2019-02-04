@@ -1,38 +1,39 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Movie;
 
 use Illuminate\Http\Request;
+use App\Movie;
 
 class CatalogController extends Controller
 {
 
-
     public function getIndex()
     {
-       //$peliculas=$this->arrayPeliculas;
-        $arrayPeliculas=Movie::all();
-        return view('catalog.catalog', array('arrayPeliculas'=>$arrayPeliculas));
-    }
-    public function getShow($id)
-    {
-        //$pelicula=$this->arrayPeliculas[$id];
-        $pelicula=Movie::findOrFail($id);
-        return view('catalog.show', array('pelicula'=>$pelicula));
+        $arrayPeliculas = Movie::all();
+        return view('catalog.index', array('arrayPeliculas'=> $arrayPeliculas));
     }
 
-    public function getEdit($id)
+    public function getShow($id)
     {
-        $pelicula=Movie::findOrFail($id);
-        return view('catalog.edit', array('pelicula'=>$pelicula));
+        $pelicula = Movie::findOrFail($id);
+        return view('catalog.show', array(
+            'pelicula' => $pelicula
+        ));
     }
 
     public function getCreate()
     {
         return view('catalog.create');
     }
-    public function changeRented($id){
+
+    public function getEdit($id)
+    {
+        return view('catalog.edit', array('id'=>$id));
+    }
+
+    public function changeRented($id)
+    {
         $pelicula = Movie::findOrFail($id);
         $pelicula->rented = !$pelicula->rented;
         $pelicula->save();

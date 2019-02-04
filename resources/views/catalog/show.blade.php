@@ -1,39 +1,52 @@
 @extends('layouts.master')
 
-@section('menu')
-    @parent
-@endsection
 @section('content')
+
     <div class="row">
 
         <div class="col-sm-4">
-            <img src="{{$pelicula->poster}}"/>
+
+            <a href="{{ url('/catalog/show/' . $pelicula->id ) }}">
+                <img src="{{$pelicula->poster}}" style="height:200px"/>
+            </a>
+
         </div>
         <div class="col-sm-8">
-            <h2>{{$pelicula->title}}</h2>
-            <p><b>Año:</b> {{$pelicula->year}}</p>
-            <p><b>Director:</b> {{$pelicula->director}}</p>
-            <p>{{$pelicula->synopsis}}</p>
 
-            @if($pelicula->rented)
-                <p><b>Estado:</b> Pelicula actualmente alquilada</p>
-                @php
-                    $class="btn btn-danger";
-                    $texto="Devolver";
-                @endphp
-            @else
-                <p><b>Estado:</b> Pelicula en stock</p>
-                @php
-                    $class="btn btn-success";
-                    $texto="Alquilar";
-                @endphp
-            @endif
-            <form action="{{url('catalog/changeRented/'.$pelicula->id)}}">
-                {{method_field('PUT')}}
+            <h4>{{$pelicula->title}}</h4>
+            <h6>A&ntilde;o: {{$pelicula->year}}</h6>
+            <h6>Director: {{$pelicula->director}}</h6>
+            <p><strong>Resumen:</strong> {{$pelicula->synopsis}}</p>
+            <p><strong>Estado: </strong>
+                @if($pelicula->rented)
+                    Pel&iacute;cula actualmente alquilada.
+                    @php
+                    $class = "btn btn-danger";
+                    $texto = "Devolver";
+                    @endphp
+                @else
+                    Pel&iacute;cula en stock.
+                    @php
+                        $class = "btn btn-success";
+                        $texto = "Alquilar";
+                    @endphp
+                @endif
+            </p>
+
+            <form action="{{ url('catalog/changeRented/' . $pelicula->id) }}" method="POST">
+                {{ method_field('PUT') }}
                 @csrf
-                <button type="button" class="{{$class}}">{{$texto}}</button>
+                <input type="submit"  class="{{$class}}" value="{{$texto}}" />
             </form>
-             <a href="/catalog/edit/{{$pelicula->id}}"><button type="button" class="btn btn-warning"><i class="fas fa-pen"></i> Editar</button></a> <a href="/catalog"><button type="button" class="btn btn-outline-dark"><i class="fas fa-arrow-left"></i> Volver al listado</button></a>
+
+
+            <a class="btn btn-warning" href="{{ url('/catalog/edit/' . $pelicula->id ) }}">
+                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                Editar pel&iacute;cula</a>
+            <a class="btn btn-outline-info" href="{{ action('CatalogController@getIndex') }}">Volver al listado</a>
+
         </div>
     </div>
-@endsection
+
+
+@stop
